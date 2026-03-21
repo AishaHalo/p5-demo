@@ -4,9 +4,20 @@ function setup() {
 }
 
 function draw() {
-  background(
-    Math.floor(Math.random() * 255),
-    Math.floor(Math.random() * 255),
-    Math.floor(Math.random() * 255)
-  );
+
+  var r = 100;
+  var h = 200;
+  var k = 200;
+
+  var x = r*cos(millis() / 1000) + h;
+  var y = r*sin(millis() / 100)  + k;
+
+  circle(x,y,200)
+  
+  background(500)
+  
 }
+
+
+
+
