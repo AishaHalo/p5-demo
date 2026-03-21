@@ -4,5 +4,9 @@ function setup() {
 }
 
 function draw() {
-  background(220)
+  background(
+    Math.floor(Math.random() * 255),
+    Math.floor(Math.random() * 255),
+    Math.floor(Math.random() * 255)
+  );
 }
