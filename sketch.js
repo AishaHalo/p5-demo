@@ -1,23 +1,15 @@
+var bouncables = [];
+var frequency = 0;
+
+var setupScript = function() {};
+var drawScript = function() {};
+
 function setup() {
-  createCanvas(400, 500);
-  frameRate(20);
+  createCanvas(400, 400);
 }
 
 function draw() {
+  background(220);
 
-  var r = 100;
-  var h = 200;
-  var k = 200;
-
-  var x = r*cos(millis() / 1000) + h;
-  var y = r*sin(millis() / 100)  + k;
-
-  circle(x,y,200)
-  
-  background(500)
-  
+  drawScript();
 }
-
-
-
-
