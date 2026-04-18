@@ -1,3 +1,6 @@
+var frequency = 0;
+
+
 function flagSegment(color, xInitial, yInitial, segmentWidth, segmentHeight, param1, param2) {
   fill(color);
   beginShape();
