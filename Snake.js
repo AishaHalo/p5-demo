@@ -15,6 +15,16 @@ const snakeHead = {
 
 };
 
+const food = {
+    image: null,
+    positionX: null,
+    positionY: null,
+    sizeX: cellSize,
+    sizeY: cellSize
+}
+
+
+
 
 
 function drawHead(){
@@ -62,6 +72,13 @@ function drawGrid(){
 
 function drawSnake() {
     drawGrid();
+    image(
+        food.image,
+        cellSize *food.positionX,
+        cellSize *food.positionY,
+        food.sizeY,
+        food.sizeX
+    )
     
 
     if (snakeHead.direction === 'r') {
@@ -102,9 +119,24 @@ function keyPressedSnake(){
         snakeHead.direction = 'd'
 
     }
+
+     
 }
 
+    function getRandomFoodPosition () {
+        const countCellX = canvasX / cellSize;
+        const countCellY = canvasY / cellSize;
+
+        return {
+            x: Math.floor(Math.random() * countCellX) + 1,
+            y: Math.floor(Math.random() * countCellY) + 1
+        }
+    }
+
 function setupSnake() {
+    food.image = loadImage('Assest/FOOD.webp')
+    food.positionX = getRandomFoodPosition().x;
+    food.positionY = getRandomFoodPosition().y;
 
     snakeHead.image= loadImage('Assest/Snake.png')
     snakeHead.direction = directionInitial;
