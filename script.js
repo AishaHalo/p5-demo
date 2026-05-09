@@ -1,4 +1,5 @@
 function projectSelected() {
+    document.getElementById('defaultCanvas0').focus();
     const projectsSelect = document.getElementById('projects');
     frameRate(60);
 
