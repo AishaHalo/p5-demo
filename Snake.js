@@ -1,5 +1,6 @@
 
 const directionInitial = 'r';
+const tail = [];
 
 
 
@@ -8,17 +9,27 @@ const cellSize = 25;
 const snakeHead = {
     direction: null,
     image: null,
-    positionX: null ,
-    positionY: null ,
+    cellX: null ,
+    cellY: null ,
     sizeX: cellSize,
     sizeY:  cellSize
 
 };
 
+const snakeTailSegment = {
+    image: null,
+    sizeX: cellSize,
+    sizeY: cellSize
+}
+
+
+
+
+
 const food = {
     image: null,
-    positionX: null,
-    positionY: null,
+    cellX: null,
+    cellY: null,
     sizeX: cellSize,
     sizeY: cellSize
 }
@@ -30,18 +41,16 @@ const food = {
 function drawHead(){
     angleMode(DEGREES)
     push();
-translate(snakeHead.positionX, snakeHead.positionY);
+translate(cellSize * snakeHead.cellX + cellSize / 2,
+        cellSize * snakeHead.cellY + cellSize / 2);
 
 if (snakeHead.direction === 'r') {
-        snakeHead.positionX += cellSize;
         rotate(-90);
     }
 else if (snakeHead.direction === 'l') {
-        snakeHead.positionX -= cellSize;
         rotate(90);
     }
 else if (snakeHead.direction === 'u') {
-        snakeHead.positionY -= cellSize;
         rotate(180);
     }
     imageMode(CENTER)
@@ -58,7 +67,27 @@ else if (snakeHead.direction === 'u') {
 
 
 
+function drawTail() {
+    let index = 0;
+     while (index <= tail.length - 2) {
+        tail[index].cellX = tail[index + 1].cellX;
+        tail[index].cellY = tail[index + 1].cellY;
 
+     }
+     tail[tail.length - 1].cellX =  snakeHead.cellX;
+     tail[tail.length - 1].cellY =  snakeHead.cellY;
+
+     tail.forEach((segment) => {
+        image(
+            snakeTailSegment.image,
+            segment.cellX * cellSize,
+            segment.cellY * cellSize,
+            snakeTailSegment.sizeX,
+            snakeTailSegment.sizeY
+        )
+     })
+
+}
 function drawGrid(){
         for(var x = 0; x < canvasX; x = x + cellSize){
             line(x, 0, x, canvasY)
@@ -72,32 +101,52 @@ function drawGrid(){
 
 function drawSnake() {
     drawGrid();
+
+    
     image(
         food.image,
-        cellSize *food.positionX,
-        cellSize *food.positionY,
+        cellSize *food.cellX,
+        cellSize *food.cellY,
         food.sizeY,
         food.sizeX
-    )
+    );
+
+
+      drawTail();
+
     
 
     if (snakeHead.direction === 'r') {
-        snakeHead.positionX += cellSize;
+        snakeHead.cellX += 1;
 
     }
 
 else if (snakeHead.direction === 'l') {
-        snakeHead.positionX -= cellSize;
+        snakeHead.cellX -= 1;
     }
 else if (snakeHead.direction === 'u') {
-        snakeHead.positionY -= cellSize;
+        snakeHead.cellY -= 1;
     }
 else if (snakeHead.direction === 'd') {
-        snakeHead.positionY += cellSize;
+        snakeHead.cellY += 1;
+    }
+
+    if (snakeHead.cellX === food.cellX && snakeHead.cellY === food.cellY) {
+    food.cellX = getRandomFoodPosition().x;
+    food.cellY = getRandomFoodPosition().y;
+
+    
+    tail.unshift({
+        cellX: tail[0].cellX,
+        cellY: tail[0].cellY
+    })
+
+
     }
 
 
     drawHead();
+
 
 }
 
@@ -128,20 +177,23 @@ function keyPressedSnake(){
         const countCellY = canvasY / cellSize;
 
         return {
-            x: Math.floor(Math.random() * countCellX) + 1,
-            y: Math.floor(Math.random() * countCellY) + 1
+            x: Math.floor(Math.random() * countCellX),
+            y: Math.floor(Math.random() * countCellY)
         }
     }
 
 function setupSnake() {
     food.image = loadImage('Assest/FOOD.webp')
-    food.positionX = getRandomFoodPosition().x;
-    food.positionY = getRandomFoodPosition().y;
-
-    snakeHead.image= loadImage('Assest/Snake.png')
+    '
+    '
+    snakeHead.image = loadImage('Assest/Snake.png')
     snakeHead.direction = directionInitial;
-    snakeHead.positionX = cellSize * 2 + cellSize / 2;
-    snakeHead.positionY = cellSize * 2 + cellSize / 2;
-    
+    snakeHead.cellX = 2;
+    snakeHead.cellY = 2;
 
+    snakeTailSegment.image = loadImage('Assets'/'Body.wepb');
+    tail.length = 0 ;
+    tail.push({cellX: null,
+        cellY: null
+    });
 }
