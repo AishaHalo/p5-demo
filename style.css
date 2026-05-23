@@ -3,6 +3,36 @@ html, body {
   padding: 0;
 }
 
-canvas {
-  display: block;
+body {
+display:flex;
+height: 100vh;
+justify-content: center ;
 }
+
+#p5-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+ 
+  
+  label{
+    margin-bottom: 20px;
+    font-size: 30px;
+
+   
+  }
+}
+
+#p5-canvas{
+  margin-bottom: 20px;
+}
+
+select{
+  width: 100;
+  }
+
+/* #p5-canvas{
+  display: flex;
+  justify-content: center;
+} */
