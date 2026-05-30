@@ -4,15 +4,15 @@ html, body {
 }
 
 body {
+  align-items: center;
 display:flex;
+flex-direction: column;
 height: 100vh;
-justify-content: center ;
 }
 
 #p5-wrapper {
   align-items: center;
   display: flex;
-  justify-content: center;
   flex-direction: column;
  
   
@@ -31,6 +31,8 @@ justify-content: center ;
 select{
   width: 100;
   }
+
+
 
 /* #p5-canvas{
   display: flex;
